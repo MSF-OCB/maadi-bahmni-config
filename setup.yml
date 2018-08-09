@@ -1,0 +1,4 @@
+timezone: Asia/Kolkata
+implementation_name: ocbcairo
+selinux_state: disabled
+bahmni_repo_url: http://repo.mybahmni.org.s3-website-ap-southeast-1.amazonaws.com/rpm/bahmni/
