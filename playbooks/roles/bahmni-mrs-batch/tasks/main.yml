@@ -1,0 +1,24 @@
+---
+-
+- 
+  command: "cp /tmp/bahmnimaadi-1.0-SNAPSHOT.omod /opt/openmrs/modules/bahmnimaadi-1.0-SNAPSHOT.omod"
+  name: "copying the bahmnimaadi custom omod"
+- 
+  command: "cp /tmp/appointments-1.1-SNAPSHOT.omod /opt/openmrs/modules/appointments-1.1-SNAPSHOT.omod"
+  name: "copying the appointments omod"
+- 
+  command: "cp /tmp/bahmniapps.zip /opt/bahmni-web/etc/bahmniapps.zip"
+  name: "copying the bahmni apps"
+- 
+  command: "unlink /var/www/bahmniapps"
+  name: "unlinking /var/www/bahmniapps"
+  when: "bahmniapps_url is defined"
+- 
+  name: "Unzip downloaded bahmniapps file"
+  unarchive: 
+    dest: /opt/bahmni-web/etc/bahmniapps
+    src: /opt/bahmni-web/etc/bahmniapps.zip
+- 
+  command: "ln -s /opt/bahmni-web/etc/bahmniapps /var/www/bahmniapps"
+  name: "linking /var/www/bahmniapps to cairo bahmniapps"
+  when: "bahmniapps_url is defined"
