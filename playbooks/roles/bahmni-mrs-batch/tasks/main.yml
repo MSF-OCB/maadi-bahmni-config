@@ -6,6 +6,11 @@
   command: "cp /tmp/appointments-1.1-SNAPSHOT.omod /opt/openmrs/modules/appointments-1.1-SNAPSHOT.omod"
   name: "copying the appointments omod"
 - 
+  file: 
+    path: /opt/openmrs/modules/appointment*.omod
+    state: absent
+  name: "delete previous appt  module"
+- 
   command: "cp /tmp/bahmniapps.zip /opt/bahmni-web/etc/bahmniapps.zip"
   name: "copying the bahmni apps"
 - 
