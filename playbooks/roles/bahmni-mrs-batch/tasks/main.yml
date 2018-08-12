@@ -7,7 +7,7 @@
   name: "copying the appointments omod"
 - 
   file: 
-    path: /opt/openmrs/modules/appointment*.omod
+    path: /opt/openmrs/modules/appointment-*.omod
     state: absent
   name: "delete previous appt  module"
 - 
