@@ -1,6 +1,5 @@
 ---
 -
-- 
   command: "cp /tmp/bahmnimaadi-1.0-SNAPSHOT.omod /opt/openmrs/modules/bahmnimaadi-1.0-SNAPSHOT.omod"
   name: "copying the bahmnimaadi custom omod"
 - 
