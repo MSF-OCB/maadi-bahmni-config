@@ -1,4 +1,4 @@
 timezone: Asia/Kolkata
-implementation_name: ocb
+implementation_name: ocbcairo
 selinux_state: disabled
 bahmni_repo_url: https://dl.bintray.com/bahmni/rpm
