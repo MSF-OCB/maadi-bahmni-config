@@ -1,110 +1,109 @@
 {
-        "id": "bahmni.registration",
-        "instanceOf":"bahmni.template.registration",
-        "description": "Bahmni Patient Registration App",
-        "extensionPoints": [
-            {
-                "id": "org.bahmni.registration.patient.search.result.action",
-                "description": "Bahmni Patient Search Result Action"
-            },
-            {
-                "id": "org.bahmni.registration.patient.next",
-                "description": "After Bahmni Patient Registration, forward url configuration"
-            }
-        ],
-        "contextModel": [
-            "patientUuid",
-            "activeVisitUuid"
-        ],
-        "config" : {
-            "patientInformation": {
-                "additionalPatientInformation": {
-                    "title": "Additional Patient Information",
-                    "attributes": [
-                        "distanceFromCenter",
-                        "isUrban",
-                        "cluster",
-                        "RationCard",
-                        "familyIncome",
-                        "debt",
-                        "cluster"
-                    ]
-                },
-                "patientCriteria": {
-                    "title": "Patient Criteria",
-                    "translationKey" : "REGISTRATION_PATIENT_CRITERIA_INFORMATION",
-                    "attributes": [
-                        "Patient's scope",
-                        "In-scope Date"
-                    ]
-                },
-                "hidden": {
-                    "attributes": [
-                        "primaryContact"
-                    ]
-                },
-                "defaults":  {
-                    "class": "General",
-                    "landHolding": 2
-                }
-            },
-            "addressHierarchy": {
-                "showAddressFieldsTopDown": true,
-                "strictAutocompleteFromLevel": "stateProvince"
-            },
-            "relationshipTypeMap": {
-                "Doctor":"provider",
-                "Parent":"patient"
-            },
-
-            "autoCompleteFields":["Nationality", "Language"],
-            "defaultIdentifierPrefix": "A",
-            "defaultVisitType": "MDT",
-            "searchByIdForwardUrl": "/patient/{{patientUuid}}",
-            "showMiddleName": true,
-            "showLastName": false,
-            "isLastNameMandatory": true,
-            "showSaveConfirmDialog": false,
-            "showBirthTime": false,
-            "showCasteSameAsLastNameCheckbox": false,
-            "printOptions": [
-            ],
-            "conceptSetUI": {
-                "REGISTRATION FEES": {
-                    "required": true,
-                    "label": "Fee"
-                },
-                "FHS": {
-                    "buttonSelect": true
-                },
-                "defaults":{
-                    "FHS": "Present"
-                }
-            },
-            "fieldValidation" : {
-                "Phone1" : {"pattern" : "[0-9]{4}-[0-9]{3} [0-9]{4}", "errorMessage" : "Should contain 11 characters and in format xxxx-xxx xxxx"},
-                "Phone2" : {"pattern" : "[0-9]{4}-[0-9]{3} [0-9]{4}", "errorMessage" : "Should contain 11 characters and in format xxxx-xxx xxxx"},
-                "UN number" : {"pattern" : "[5]{3}-[a-zA-Z0-9\\s]{8}" , "errorMessage" : "Should be alphanumeric and in format 555-xxxxxxxx" },
-                "Age" : {"pattern" : "([0-9]|[1-8][0-9]|9[0-9]|1[01][0-9]|120)", "errorMessage" : "Value Should be in between 0 to 120"},
-                "familyName" : {"pattern" : "[a-zA-Z]{0,}", "errorMessage" : "Should contain characters"},
-                "givenName" : {"pattern" : "[a-zA-Z]{0,30}", "errorMessage" : "Should contain characters"},
-                "middleName" : {"pattern" : "[a-zA-Z]{0,40}", "errorMessage" : "Should contain characters"},
-                "address1" : {"pattern" : "[a-zA-Z0-9\\s]{2,}", "errorMessage" : "Should contain at least 2 characters"}
-            },
-            "patientSearch": {
-                "customAttributes": {
-                    "label": "Phone / UN Number",
-                    "placeholder": "Phone or UN Number",
-                    "fields": ["Phone1","Phone2","UN number"]
-                }
-            },
-            "patientPhoneno":
-  {
-    "attributeHolder":{
-      "label": "pritam",
-      "placeholder":"phone",
-      "field": "Phone1"
+  "id": "bahmni.registration",
+  "instanceOf": "bahmni.template.registration",
+  "description": "Bahmni Patient Registration App",
+  "extensionPoints": [
+    {
+      "id": "org.bahmni.registration.patient.search.result.action",
+      "description": "Bahmni Patient Search Result Action"
+    },
+    {
+      "id": "org.bahmni.registration.patient.next",
+      "description": "After Bahmni Patient Registration, forward url configuration"
+    }
+  ],
+  "contextModel": [
+    "patientUuid",
+    "activeVisitUuid"
+  ],
+  "config": {
+    "patientInformation": {
+      "additionalPatientInformation": {
+        "title": "Additional Patient Information",
+        "attributes": [
+          "distanceFromCenter",
+          "isUrban",
+          "cluster",
+          "RationCard",
+          "familyIncome",
+          "debt",
+          "cluster"
+        ]
+      },
+      "patientCriteria": {
+        "title": "Patient Criteria",
+        "translationKey": "REGISTRATION_PATIENT_CRITERIA_INFORMATION",
+        "attributes": [
+          "Patient's scope",
+          "In-scope Date"
+        ]
+      },
+      "hidden": {
+        "attributes": []
+      },
+      "defaults": {}
+    },
+    "addressHierarchy": {
+      "showAddressFieldsTopDown": true,
+      "strictAutocompleteFromLevel": "stateProvince"
+    },
+    "relationshipTypeMap": {},
+    "autoCompleteFields": [],
+    "defaultIdentifierPrefix": "A",
+    "defaultVisitType": "",
+    "searchByIdForwardUrl": "/patient/{{patientUuid}}",
+    "showMiddleName": true,
+    "showLastName": false,
+    "isLastNameMandatory": true,
+    "showSaveConfirmDialog": false,
+    "showBirthTime": false,
+    "showCasteSameAsLastNameCheckbox": false,
+    "printOptions": [],
+    "conceptSetUI": {},
+    "fieldValidation": {
+      "Phone1": {
+        "pattern": "[0-9]{4}-[0-9]{3} [0-9]{4}",
+        "errorMessage": "Should contain 11 characters and in format xxxx-xxx xxxx"
+      },
+      "Phone2": {
+        "pattern": "[0-9]{4}-[0-9]{3} [0-9]{4}",
+        "errorMessage": "Should contain 11 characters and in format xxxx-xxx xxxx"
+      },
+      "UN number": {
+        "pattern": "[5]{3}-[a-zA-Z0-9\\s]{8}",
+        "errorMessage": "Should be alphanumeric and in format 555-xxxxxxxx"
+      },
+      "Age": {
+        "pattern": "([0-9]|[1-8][0-9]|9[0-9]|1[01][0-9]|120)",
+        "errorMessage": "Value Should be in between 0 to 120"
+      },
+      "familyName": {
+        "pattern": "[a-zA-Z]{0,}",
+        "errorMessage": "Should contain characters"
+      },
+      "givenName": {
+        "pattern": "[a-zA-Z]{0,30}",
+        "errorMessage": "Should contain characters"
+      },
+      "middleName": {
+        "pattern": "[a-zA-Z]{0,40}",
+        "errorMessage": "Should contain characters"
+      },
+      "address1": {
+        "pattern": "[a-zA-Z0-9\\s]{2,}",
+        "errorMessage": "Should contain at least 2 characters"
+      }
+    },
+    "patientSearch": {
+      "customAttributes": {
+        "label": "Phone / UN Number",
+        "placeholder": "Phone or UN Number",
+        "fields": [
+          "Phone1",
+          "Phone2",
+          "UN number"
+        ]
+      }
     }
   }
-        }
 }
