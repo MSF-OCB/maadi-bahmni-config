@@ -43,6 +43,20 @@
       },
       "defaults": {}
     },
+		"forwardUrlsForVisitTypes": [
+                        {
+                        "visitType": "MDT",
+                        "forwardUrl": "../registration/index.html#/patient/{{patientUuid}}",
+                        "translationKey": "Enter Visit Details",
+                        "shortcutKey": "c"
+                        },
+                        {
+                        "visitType": "Intake",
+                        "forwardUrl": "../registration/index.html#/patient/{{patientUuid}}",
+                        "translationKey": "Enter Visit Details",
+                        "shortcutKey": "d"
+                        }
+                ],
     "addressHierarchy": {
       "showAddressFieldsTopDown": true,
       "strictAutocompleteFromLevel": "stateProvince"
@@ -50,7 +64,7 @@
     "relationshipTypeMap": {},
     "autoCompleteFields": [],
     "defaultIdentifierPrefix": "A",
-    "defaultVisitType": "",
+    "defaultVisitType": "MDT",
     "searchByIdForwardUrl": "/patient/{{patientUuid}}",
     "showMiddleName": true,
     "showLastName": false,
@@ -88,10 +102,6 @@
       "middleName": {
         "pattern": "[a-zA-Z]{0,40}",
         "errorMessage": "Should contain characters"
-      },
-      "address1": {
-        "pattern": "[a-zA-Z0-9\\s]{2,}",
-        "errorMessage": "Should contain at least 2 characters"
       }
     },
     "patientSearch": {
