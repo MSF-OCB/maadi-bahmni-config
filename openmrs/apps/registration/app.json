@@ -38,25 +38,24 @@
           "In-scope Date"
         ]
       },
-      "hidden": {
-        "attributes": []
-      },
-      "defaults": {}
+      "defaults": {
+        "Patient's scope": "In-Scope"
+      }
     },
 		"forwardUrlsForVisitTypes": [
-                        {
-                        "visitType": "MDT",
-                        "forwardUrl": "../registration/index.html#/patient/{{patientUuid}}",
-                        "translationKey": "Enter Visit Details",
-                        "shortcutKey": "c"
-                        },
-                        {
-                        "visitType": "Intake",
-                        "forwardUrl": "../registration/index.html#/patient/{{patientUuid}}",
-                        "translationKey": "Enter Visit Details",
-                        "shortcutKey": "d"
-                        }
-                ],
+        {
+          "visitType": "MDT",
+          "forwardUrl": "../registration/index.html#/patient/{{patientUuid}}",
+          "translationKey": "Enter Visit Details",
+          "shortcutKey": "c"
+        },
+        {
+          "visitType": "Intake",
+          "forwardUrl": "../registration/index.html#/patient/{{patientUuid}}",
+          "translationKey": "Enter Visit Details",
+          "shortcutKey": "d"
+        }
+    ],
     "addressHierarchy": {
       "showAddressFieldsTopDown": true,
       "strictAutocompleteFromLevel": "stateProvince"
@@ -68,12 +67,9 @@
     "searchByIdForwardUrl": "/patient/{{patientUuid}}",
     "showMiddleName": true,
     "showLastName": false,
-    "isLastNameMandatory": true,
-    "showSaveConfirmDialog": false,
+    "isLastNameMandatory": false,
+    "showSaveConfirmDialog": true,
     "showBirthTime": false,
-    "showCasteSameAsLastNameCheckbox": false,
-    "printOptions": [],
-    "conceptSetUI": {},
     "fieldValidation": {
       "Phone1": {
         "pattern": "[0-9]{4}-[0-9]{3} [0-9]{4}",
@@ -114,6 +110,11 @@
           "UN number"
         ]
       }
-    }
+    },
+    "patientSearchResults": {
+       "personAttributes": {
+         "fields": ["Language","Phone1","Phone2" ]
   }
+}
+}
 }
