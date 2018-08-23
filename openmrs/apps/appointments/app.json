@@ -52,6 +52,6 @@
       "Cancelled": "#fcb6b6"
     },
     "enableAutoRefresh": true,
-    "autoRefreshIntervalInMilliSeconds": 60000
+    "autoRefreshIntervalInSeconds": 60
   }
 }
