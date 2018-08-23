@@ -50,6 +50,8 @@
     "colorsForListView": {
       "Missed": "#fceab6",
       "Cancelled": "#fcb6b6"
-    }
+    },
+    "enableAutoRefresh": true,
+    "autoRefreshIntervalInSeconds": 60
   }
 }
