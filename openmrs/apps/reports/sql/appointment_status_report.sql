@@ -42,7 +42,7 @@ FROM
   ) as otherLanguage on pai.patient_id = otherLanguage.person_id
 
 WHERE
-  DATE(pai.start_date_time) BETWEEN date('2018-08-01') AND DATE('2018-08-31')
+  DATE(pai.start_date_time) BETWEEN DATE('#startDate#') AND DATE('#endDate#')
   AND pai.appointment_kind='Scheduled'
   AND pai.appointment_service_id IN
                                   (
