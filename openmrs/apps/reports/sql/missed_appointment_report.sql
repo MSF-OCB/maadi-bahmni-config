@@ -7,7 +7,7 @@ SELECT
   serviceAppointment.name AS "Appointment Service",
   serviceTypeAppointment.name AS "Appointment Service Type",
   DATE(pai.start_date_time) AS  "Date of Appointment",
-  DATE_FORMAT(pai.start_date_time, '%H:%i') AS "Appointment Time",
+  DATE_FORMAT(pai.start_date_time, '%r') AS "Appointment Time",
   (CASE WHEN language.concept_full_name ="Other"
     THEN CONCAT(ifnull(language.concept_full_name,''),case when otherLanguage.value is null then '' else ',' end,ifnull(otherLanguage.value ,''))
     ELSE ifnull(language.concept_full_name,'') END) AS "Patient's Language",
@@ -18,7 +18,7 @@ FROM
   patient pa
   LEFT JOIN patient_appointment pai ON pa.patient_id = pai.patient_id
   LEFT JOIN appointment_service serviceAppointment ON   pai.appointment_service_id = serviceAppointment.appointment_service_id
-  LEFT JOIN appointment_service_type serviceTypeAppointment ON serviceAppointment.appointment_service_id = serviceTypeAppointment.appointment_service_id
+  LEFT JOIN appointment_service_type serviceTypeAppointment ON serviceAppointment.appointment_service_id = serviceTypeAppointment.appointment_service_id  AND pai.appointment_service_type_id = serviceTypeAppointment.appointment_service_type_id AND serviceTypeAppointment.voided = 0
   INNER JOIN patient_identifier identifierOfPatient ON pai.patient_id = identifierOfPatient.patient_id
   INNER JOIN person_name nameOfPatient ON pai.patient_id = nameOfPatient.person_id
 

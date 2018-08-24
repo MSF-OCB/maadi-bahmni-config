@@ -4,11 +4,11 @@ SELECT
   serviceAppointment.name AS "Appointment Service",
   serviceTypeAppointment.name AS "Appointment Service Type",
   DATE(pai.start_date_time) AS  "Date of Appointment",
-  DATE_FORMAT(pai.start_date_time, '%H:%i') AS "Appointment Start Time",
-  DATE_FORMAT(pai.end_date_time, '%H:%i') AS "Appointment End Time",
+  DATE_FORMAT(pai.start_date_time, '%r') AS "Appointment Start Time",
+  DATE_FORMAT(pai.end_date_time, '%r') AS "Appointment End Time",
   pai.status AS "Status",
-  DATE_FORMAT(checkinTime.date_started, '%H:%i') AS "Start Visit Time",
-  group_concat(distinct(CASE WHEN typeOfPatientAttribute.name IN ("Language","Other Language") THEN cv.concept_full_name ELSE NULL END)) AS "Patient's Language",
+  DATE_FORMAT(checkinTime.date_started,'%d-%b-%Y %r' ) AS "Start Visit Time",
+  (CASE WHEN language.concept_full_name ="Other" THEN CONCAT(ifnull(language.concept_full_name,''),case when otherLanguage.value is null then '' else ',' end,ifnull(otherLanguage.value ,'')) ELSE ifnull(language.concept_full_name,'') END) AS "Patient's Language",
   pai.comments AS "Notes"
 
 FROM
@@ -24,9 +24,25 @@ FROM
   LEFT JOIN person_attribute attributeOfPatient ON pai.patient_id = attributeOfPatient.person_id
   LEFT JOIN person_attribute_type typeOfPatientAttribute ON attributeOfPatient.person_attribute_type_id = typeOfPatientAttribute.person_attribute_type_id
   LEFT JOIN concept_view cv ON cv.concept_id = attributeOfPatient.value
+  Left Join
+  (/*Getting the value for language*/
+  Select attributeOfPatient.person_id,cv.concept_full_name from person_attribute attributeOfPatient
+  inner JOIN person_attribute_type typeOfPatientAttribute
+  ON attributeOfPatient.person_attribute_type_id =typeOfPatientAttribute.person_attribute_type_id
+  inner JOIN concept_view cv ON cv.concept_id = attributeOfPatient.value
+  where  typeOfPatientAttribute.name = "Language" and attributeOfPatient.voided = 0
+  ) as language on pai.patient_id = language.person_id
+
+  Left join
+ (/*Getting the value for Other language*/
+  Select attributeOfPatient.person_id,attributeOfPatient.value from person_attribute attributeOfPatient
+  inner JOIN person_attribute_type typeOfPatientAttribute
+  ON attributeOfPatient.person_attribute_type_id =typeOfPatientAttribute.person_attribute_type_id
+  where  typeOfPatientAttribute.name = "Other Language" and attributeOfPatient.voided = 0
+  ) as otherLanguage on pai.patient_id = otherLanguage.person_id
 
 WHERE
-  DATE(pai.start_date_time) BETWEEN date('#startDate#') AND DATE('#endDate#')
+  DATE(pai.start_date_time) BETWEEN date('2018-08-01') AND DATE('2018-08-31')
   AND pai.appointment_kind='Scheduled'
   AND pai.appointment_service_id IN
                                   (
