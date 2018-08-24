@@ -45,14 +45,14 @@
 		"forwardUrlsForVisitTypes": [
         {
           "visitType": "MDT",
-          "forwardUrl": "../registration/index.html#/patient/{{patientUuid}}",
-          "translationKey": "Enter Visit Details",
+          "forwardUrl": "../registration/index.html#/search",
+          "translationKey": "Back to Search Page",
           "shortcutKey": "c"
         },
         {
           "visitType": "Intake",
-          "forwardUrl": "../registration/index.html#/patient/{{patientUuid}}",
-          "translationKey": "Enter Visit Details",
+          "forwardUrl": "../registration/index.html#/search",
+          "translationKey": "Back to Search Page",
           "shortcutKey": "d"
         }
     ],
@@ -68,7 +68,7 @@
     "showMiddleName": true,
     "showLastName": false,
     "isLastNameMandatory": false,
-    "showSaveConfirmDialog": true,
+    "showSaveConfirmDialog": false,
     "showBirthTime": false,
     "fieldValidation": {
       "Phone1": {
