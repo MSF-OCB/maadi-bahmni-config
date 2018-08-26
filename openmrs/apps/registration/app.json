@@ -113,7 +113,7 @@
     },
     "patientSearchResults": {
        "personAttributes": {
-         "fields": ["Language","Phone1","Phone2" ]
+         "fields": ["Language","UN number","Phone1","Phone2"]
   }
 }
 }
