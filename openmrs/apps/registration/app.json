@@ -61,6 +61,8 @@
       "strictAutocompleteFromLevel": "stateProvince"
     },
     "relationshipTypeMap": {},
+    "disablePhotoCapture": true,
+    "showEnterID":false,
     "autoCompleteFields": [],
     "defaultIdentifierPrefix": "A",
     "defaultVisitType": "MDT",

@@ -9,26 +9,6 @@
     "order": 1,
     "requiredPrivilege": "app:registration"
   },
-  "admin": {
-    "id": "bahmni.admin",
-    "extensionPointId": "org.bahmni.home.dashboard",
-    "type": "link",
-    "translationKey": "MODULE_LABEL_ADMIN_KEY",
-    "url": "../admin/#/dashboard/home",
-    "icon": "icon-bahmni-admin",
-    "order": 7,
-    "requiredPrivilege": "app:admin"
-  },
-  "reports": {
-    "id": "bahmni.reports",
-    "extensionPointId": "org.bahmni.home.dashboard",
-    "type": "link",
-    "translationKey": "MODULE_LABEL_REPORTS_KEY",
-    "url": "../reports/#/dashboard",
-    "icon": "icon-bahmni-reports",
-    "order": 8,
-    "requiredPrivilege": "app:reports"
-  },
   "appointments": {
     "id": "bahmni.appointments",
     "extensionPointId": "org.bahmni.home.dashboard",
@@ -36,7 +16,7 @@
     "translationKey": "MODULE_LABEL_APOOINTMENTS_KEY",
     "url": "../../openmrs/appointmentschedulingui/home.page",
     "icon": "fa fa-calendar",
-    "order": 11,
+    "order": 2,
     "requiredPrivilege": "App: appointmentschedulingui.home"
   },
   "appointmentScheduling": {
@@ -46,7 +26,28 @@
     "translationKey": "MODULE_LABEL_APPOINTMENT_SCHEDULING_KEY",
     "url": "../appointments",
     "icon": "fa fa-calendar",
-    "order": 14,
+    "order": 3,
     "requiredPrivilege": "app:appointments"
+  },
+  "reports": {
+    "id": "bahmni.reports",
+    "extensionPointId": "org.bahmni.home.dashboard",
+    "type": "link",
+    "translationKey": "MODULE_LABEL_REPORTS_KEY",
+    "url": "../reports/#/dashboard",
+    "icon": "icon-bahmni-reports",
+    "order": 4,
+    "requiredPrivilege": "app:reports"
+  },
+  "admin": {
+    "id": "bahmni.admin",
+    "extensionPointId": "org.bahmni.home.dashboard",
+    "type": "link",
+    "translationKey": "MODULE_LABEL_ADMIN_KEY",
+    "url": "../admin/#/dashboard/home",
+    "icon": "icon-bahmni-admin",
+    "order": 5,
+    "requiredPrivilege": "app:admin"
   }
+
 }
