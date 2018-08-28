@@ -77,10 +77,6 @@
         "pattern": "[0-9]{4}-[0-9]{3} [0-9]{4}",
         "errorMessage": "Should contain 11 characters and in format xxxx-xxx xxxx"
       },
-      "Phone2": {
-        "pattern": "[0-9]{4}-[0-9]{3} [0-9]{4}",
-        "errorMessage": "Should contain 11 characters and in format xxxx-xxx xxxx"
-      },
       "UN number": {
         "pattern": "[5]{3}-[a-zA-Z0-9\\s]{8}",
         "errorMessage": "Should be alphanumeric and in format 555-xxxxxxxx"
