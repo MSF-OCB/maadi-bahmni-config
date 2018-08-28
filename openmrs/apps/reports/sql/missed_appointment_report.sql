@@ -62,4 +62,5 @@ WHERE
                                               'Blue Team','Green Team','Orange Team','Red Team'
                                               )
                                   )
-GROUP BY pai.patient_appointment_id;
+GROUP BY pai.patient_appointment_id
+ORDER BY pai.start_date_time;
