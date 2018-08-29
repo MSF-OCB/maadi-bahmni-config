@@ -7,7 +7,7 @@ SELECT
   serviceAppointment.name AS "Appointment Service",
   serviceTypeAppointment.name AS "Appointment Service Type",
   DATE(pai.start_date_time) AS  "Date of Appointment",
-  DATE_FORMAT(pai.start_date_time, '%r') AS "Appointment Time",
+  DATE_FORMAT(pai.start_date_time, '%I:%i %p') AS "Appointment Time",
   (CASE WHEN language.concept_full_name ="Other"
     THEN CONCAT(ifnull(language.concept_full_name,''),case when otherLanguage.value is null then '' else ',' end,ifnull(otherLanguage.value ,''))
     ELSE ifnull(language.concept_full_name,'') END) AS "Patient's Language",
@@ -55,12 +55,9 @@ WHERE
   AND pai.appointment_kind='Scheduled'
   AND pai.appointment_service_id IN
                                   (
-                                  SELECT appointment_service_id
-                                  FROM appointment_service
-                                  WHERE name IN
-                                              (
-                                              'Blue Team','Green Team','Orange Team','Red Team'
-                                              )
+                                    SELECT appointment_service_id
+                                    FROM appointment_service
+                                    where voided = 0
                                   )
 GROUP BY pai.patient_appointment_id
 ORDER BY pai.start_date_time;
