@@ -25,4 +25,7 @@
 - 
   command: "ln -s /opt/bahmni-web/etc/bahmniapps /var/www/bahmniapps"
   name: "linking /var/www/bahmniapps to cairo bahmniapps"
-  when: "bahmniapps_url is defined"
+- 
+  name: "Start openmrs"
+  service: "name=openmrs state=started"
+  when: "passive is not defined or passive != 'yes'"
