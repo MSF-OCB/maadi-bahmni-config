@@ -7,7 +7,6 @@ SELECT
   DATE_FORMAT(pai.start_date_time, '%I:%i %p') AS "Appointment Start Time",
   DATE_FORMAT(pai.end_date_time, '%I:%i %p') AS "Appointment End Time",
   pai.status AS "Status",
-  appCheckinTime.notes,
   DATE_FORMAT(CONVERT_TZ(appCheckinTime.notes,'+00:00','+05:30'),'%I:%i %p') AS "Start CheckedIn Time",
   (CASE WHEN language.concept_full_name ="Other" THEN CONCAT(ifnull(language.concept_full_name,''),case when otherLanguage.value is null then '' else ',' end,ifnull(otherLanguage.value ,'')) ELSE ifnull(language.concept_full_name,'') END) AS "Patient's Language",
   pai.comments AS "Notes"
