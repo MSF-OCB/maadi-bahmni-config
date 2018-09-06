@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+       http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+<changeSet id="MAADI-CONFIG-201809041139" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                   SELECT count(*) from concept_answer  where concept_id in(SELECT concept_id from concept_name where name = 'Nationality');
+            </sqlCheck>
+        </preConditions>
+        <comment>Adding Answers to Nationality </comment>
+        <sql>
+            set @concept_id = 0;
+            set @child1_concept_id = 0;
+            set @child2_concept_id = 0;
+            set @child3_concept_id = 0;
+            set @child4_concept_id = 0;
+            set @child5_concept_id = 0;
+            set @child6_concept_id = 0;
+            set @child7_concept_id = 0;
+            set @child8_concept_id = 0;
+            set @child9_concept_id = 0;
+            set @child10_concept_id = 0;
+            set @child11_concept_id = 0;
+
+
+            SELECT concept_id into @concept_id from concept_name where name = 'Nationality' and concept_name_type = 'FULLY_SPECIFIED'  and voided = 0;
+
+            SELECT concept_id into @child1_concept_id from concept_name where name = "Ethiopian" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child2_concept_id from concept_name where name = "Eritrean" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child3_concept_id from concept_name where name = "Sudan" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child4_concept_id from concept_name where name = "South Sudan" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child5_concept_id from concept_name where name = "Somali" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child6_concept_id from concept_name where name = "Syrian" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child7_concept_id from concept_name where name = "Libyan" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child8_concept_id from concept_name where name = "Iraqi" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child9_concept_id from concept_name where name = "Yemeni" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child10_concept_id from concept_name where name = "Nigerian" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child11_concept_id from concept_name where name = "Other" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+
+            call add_concept_answer(@concept_id, @child1_concept_id, 1);
+            call add_concept_answer(@concept_id, @child2_concept_id, 2);
+            call add_concept_answer(@concept_id, @child3_concept_id, 3);
+            call add_concept_answer(@concept_id, @child4_concept_id, 4);
+            call add_concept_answer(@concept_id, @child5_concept_id, 5);
+            call add_concept_answer(@concept_id, @child6_concept_id, 6);
+            call add_concept_answer(@concept_id, @child7_concept_id, 7);
+            call add_concept_answer(@concept_id, @child8_concept_id, 8);
+            call add_concept_answer(@concept_id, @child9_concept_id, 9);
+            call add_concept_answer(@concept_id, @child10_concept_id, 10);
+            call add_concept_answer(@concept_id, @child11_concept_id, 11);
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041154" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                   SELECT count(*) from concept_answer  where concept_id in(SELECT concept_id from concept_name where name = 'Language');
+            </sqlCheck>
+        </preConditions>
+        <comment>Adding Answers to Language </comment>
+        <sql>
+            set @concept_id = 0;
+            set @child1_concept_id = 0;
+            set @child2_concept_id = 0;
+            set @child3_concept_id = 0;
+            set @child4_concept_id = 0;
+            set @child5_concept_id = 0;
+            set @child6_concept_id = 0;
+            set @child7_concept_id = 0;
+            set @child8_concept_id = 0;
+            set @child9_concept_id = 0;
+            set @child10_concept_id = 0;
+            set @child11_concept_id = 0;
+            set @child12_concept_id = 0;
+            set @child13_concept_id = 0;
+            set @child14_concept_id = 0;
+
+
+            SELECT concept_id into @concept_id from concept_name where name = 'Language' and concept_name_type = 'FULLY_SPECIFIED'  and voided = 0;
+
+            SELECT concept_id into @child1_concept_id from concept_name where name = "Arabic" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child2_concept_id from concept_name where name = "Oromo" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child3_concept_id from concept_name where name = "Amharic" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child4_concept_id from concept_name where name = "Tigrinya" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child5_concept_id from concept_name where name = "Tigre" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child6_concept_id from concept_name where name = "Belene" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child7_concept_id from concept_name where name = "Dinka" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child8_concept_id from concept_name where name = "Somali" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child9_concept_id from concept_name where name = "Fur (Darfur)" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child10_concept_id from concept_name where name = "Zaghawa" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child11_concept_id from concept_name where name = "Nuer" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child12_concept_id from concept_name where name = "English" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child13_concept_id from concept_name where name = "Masalit" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child14_concept_id from concept_name where name = "Other" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+
+            call add_concept_answer(@concept_id, @child1_concept_id, 1);
+            call add_concept_answer(@concept_id, @child2_concept_id, 2);
+            call add_concept_answer(@concept_id, @child3_concept_id, 3);
+            call add_concept_answer(@concept_id, @child4_concept_id, 4);
+            call add_concept_answer(@concept_id, @child5_concept_id, 5);
+            call add_concept_answer(@concept_id, @child6_concept_id, 6);
+            call add_concept_answer(@concept_id, @child7_concept_id, 7);
+            call add_concept_answer(@concept_id, @child8_concept_id, 8);
+            call add_concept_answer(@concept_id, @child9_concept_id, 9);
+            call add_concept_answer(@concept_id, @child10_concept_id, 10);
+            call add_concept_answer(@concept_id, @child11_concept_id, 11);
+            call add_concept_answer(@concept_id, @child12_concept_id, 12);
+            call add_concept_answer(@concept_id, @child13_concept_id, 13);
+            call add_concept_answer(@concept_id, @child14_concept_id, 14);
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041212" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                   SELECT count(*) from concept_answer  where concept_id in(SELECT concept_id from concept_name where name = 'How reach MSF');
+            </sqlCheck>
+        </preConditions>
+        <comment>Adding Answers to How reach MSF </comment>
+        <sql>
+            set @concept_id = 0;
+            set @child1_concept_id = 0;
+            set @child2_concept_id = 0;
+            set @child3_concept_id = 0;
+            set @child4_concept_id = 0;
+            set @child5_concept_id = 0;
+
+            SELECT concept_id into @concept_id from concept_name where name = 'How reach MSF' and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+
+            SELECT concept_id into @child1_concept_id from concept_name where name = "Health Promoter" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child2_concept_id from concept_name where name = "Community" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child3_concept_id from concept_name where name = "Partner" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child4_concept_id from concept_name where name = "Friend" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child5_concept_id from concept_name where name = "Other" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+
+            call add_concept_answer(@concept_id, @child1_concept_id, 1);
+            call add_concept_answer(@concept_id, @child2_concept_id, 2);
+            call add_concept_answer(@concept_id, @child3_concept_id, 3);
+            call add_concept_answer(@concept_id, @child4_concept_id, 4);
+            call add_concept_answer(@concept_id, @child5_concept_id, 5);
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041220" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                   SELECT count(*) from concept_answer  where concept_id in(SELECT concept_id from concept_name where name = "Patient's scope");
+            </sqlCheck>
+        </preConditions>
+        <comment>Adding Answers to Patient's scope </comment>
+        <sql>
+            set @concept_id = 0;
+            set @child1_concept_id = 0;
+            set @child2_concept_id = 0;
+
+            SELECT concept_id into @concept_id from concept_name where name = "Patient's scope" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child1_concept_id from concept_name where name = "In-Scope" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child2_concept_id from concept_name where name = "Out-of-Scope" and concept_name_type = 'FULLY_SPECIFIED'  and voided = 0;
+
+            call add_concept_answer(@concept_id, @child1_concept_id, 1);
+            call add_concept_answer(@concept_id, @child2_concept_id, 2);
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041222" author="Pritam">
+      <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="3">
+                SELECT count(*) from person_attribute_type where `name` in ("givenNameLocal","familyNameLocal","middleNameLocal") and retired = 0;
+            </sqlCheck>
+      </preConditions>
+      <comment> Retiring unused Person Attributes </comment>
+        <sql>
+            update person_attribute_type set retired = 1 where `name` in ("givenNameLocal","familyNameLocal","middleNameLocal") and retired = 0;
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041557" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                     SELECT count(*) from person_attribute_type where name ='Nationality' ;
+            </sqlCheck>
+        </preConditions>
+        <comment> Adding the Nationality attribute </comment>
+        <sql>
+                INSERT INTO person_attribute_type (name, description, format, searchable, creator, date_created, retired, sort_weight, uuid, foreign_key)
+                VALUES ('Nationality', 'Nationality', 'org.openmrs.Concept', 0, 1, now(), 0, 4, uuid(), (SELECT concept_id from concept_name where `name` = 'Nationality' and concept_name_type = 'FULLY_SPECIFIED' and voided = 0));
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041102" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                     SELECT count(*) from person_attribute_type where name ='Other Nationality' ;
+            </sqlCheck>
+        </preConditions>
+        <comment> Adding the Cohort attribute </comment>
+        <sql>
+                INSERT INTO person_attribute_type (name, description, format, searchable, creator, date_created, retired, sort_weight, uuid)
+                VALUES ('Other Nationality', 'Other Nationality', 'java.lang.String', 0, 1, now(), 0, 5, uuid());
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041103" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                     SELECT count(*) from person_attribute_type where name ='Phone1' ;
+            </sqlCheck>
+        </preConditions>
+        <comment> Adding the Phone1 attribute </comment>
+        <sql>
+                INSERT INTO person_attribute_type (name, description, format, searchable, creator, date_created, retired, sort_weight, uuid)
+                VALUES ('Phone1', 'Phone1', 'java.lang.String', 0, 1, now(), 0, 6, uuid());
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041104" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                     SELECT count(*) from person_attribute_type where name ='Phone2' ;
+            </sqlCheck>
+        </preConditions>
+        <comment> Adding the Phone2 attribute </comment>
+        <sql>
+                INSERT INTO person_attribute_type (name, description, format, searchable, creator, date_created, retired, sort_weight, uuid)
+                VALUES ('Phone2', 'Phone2', 'java.lang.String', 0, 1, now(), 0, 7, uuid());
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041105" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                     SELECT count(*) from person_attribute_type where name ='UN number' ;
+            </sqlCheck>
+        </preConditions>
+        <comment> Adding the UN number attribute </comment>
+        <sql>
+                INSERT INTO person_attribute_type (name, description, format, searchable, creator, date_created, retired, sort_weight, uuid)
+                VALUES ('UN number', 'UN number', 'java.lang.String', 0, 1, now(), 0, 8, uuid());
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041106" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                     SELECT count(*) from person_attribute_type where name ='Other ID' ;
+            </sqlCheck>
+        </preConditions>
+        <comment> Adding the Other ID attribute </comment>
+        <sql>
+                INSERT INTO person_attribute_type (name, description, format, searchable, creator, date_created, retired, sort_weight, uuid)
+                VALUES ('Other ID', 'Other ID', 'java.lang.String', 0, 1, now(), 0, 9, uuid());
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041107" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                     SELECT count(*) from person_attribute_type where name ='Language' ;
+            </sqlCheck>
+        </preConditions>
+        <comment> Adding the Language attribute </comment>
+        <sql>
+                INSERT INTO person_attribute_type (name, description, format, searchable, creator, date_created, retired, sort_weight, uuid, foreign_key)
+                VALUES ('Language', 'Language', 'org.openmrs.Concept', 0, 1, now(), 0, 10, uuid(), (SELECT concept_id from concept_name where `name` = 'Language' and concept_name_type = 'FULLY_SPECIFIED' and voided = 0));
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041108" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                     SELECT count(*) from person_attribute_type where name ='Other Language' ;
+            </sqlCheck>
+        </preConditions>
+        <comment> Adding the Other Language attribute </comment>
+        <sql>
+                INSERT INTO person_attribute_type (name, description, format, searchable, creator, date_created, retired, sort_weight, uuid)
+                VALUES ('Other Language', 'Other Language', 'java.lang.String', 0, 1, now(), 0, 11, uuid());
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041109" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                     SELECT count(*) from person_attribute_type where name ='How reach MSF' ;
+            </sqlCheck>
+        </preConditions>
+        <comment> Adding the How reach MSF attribute </comment>
+        <sql>
+                INSERT INTO person_attribute_type (name, description, format, searchable, creator, date_created, retired, sort_weight, uuid, foreign_key)
+                VALUES ('How reach MSF', 'How reach MSF', 'org.openmrs.Concept', 0, 1, now(), 0, 12, uuid(),(SELECT concept_id from concept_name where `name` = 'How reach MSF' and concept_name_type = 'FULLY_SPECIFIED' and voided = 0));
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041110" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                     SELECT count(*) from person_attribute_type where name ="Patient's scope" ;
+            </sqlCheck>
+        </preConditions>
+        <comment> Adding the Patient's scope attribute </comment>
+        <sql>
+                INSERT INTO person_attribute_type (name, description, format, searchable, creator, date_created, retired, sort_weight, uuid, foreign_key)
+                VALUES ("Patient's scope", "Patient's scope", 'org.openmrs.Concept', 0, 1, now(), 0, 13, uuid(), (SELECT concept_id from concept_name where `name` = "Patient's scope" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0));
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041111" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                     SELECT count(*) from person_attribute_type where name ='In-scope Date' ;
+            </sqlCheck>
+        </preConditions>
+        <comment> Adding the In-scope Date attribute </comment>
+        <sql>
+                INSERT INTO person_attribute_type (name, description, format, searchable, creator, date_created, retired, sort_weight, uuid)
+                VALUES ('In-scope Date', 'In-scope Date', 'org.openmrs.util.AttributableDate', 0, 1, now(), 0, 14, uuid());
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809041757" author="Pritam">
+          <preConditions onFail="MARK_RAN">
+              <sqlCheck expectedResult="0">
+                  SELECT count(*) from relationship_type where a_is_to_b in ('Parent','Child','Sibling','Other');
+              </sqlCheck>
+          </preConditions>
+        <comment>Adding Relationships type</comment>
+        <sql>
+            update relationship_type set retired = 1, retired_by = 1, date_retired = now(), retire_reason = 'Not required' where a_is_to_b = 'Supervisor' and b_is_to_a = 'Supervisee';
+
+            INSERT INTO relationship_type (a_is_to_b,b_is_to_a,preferred,weight,description,creator,date_created,retired,retired_by,date_retired,retire_reason,uuid,date_changed,changed_by) VALUES
+            ('Parent','Child',0,0,'Parent to Child relationship',1,now(),0,NULL,NULL,NULL,uuid(),NULL,NULL );
+
+            INSERT INTO relationship_type (a_is_to_b,b_is_to_a,preferred,weight,description,creator,date_created,retired,retired_by,date_retired,retire_reason,uuid,date_changed,changed_by) VALUES
+            ('Child','Parent',0,0,'Child to Parent relationship',1,now(),0,NULL,NULL,NULL,uuid(),NULL,NULL );
+
+            INSERT INTO relationship_type (a_is_to_b,b_is_to_a,preferred,weight,description,creator,date_created,retired,retired_by,date_retired,retire_reason,uuid,date_changed,changed_by) VALUES
+            ('Sibling','Sibling',0,0,'Sibling to Sibling relationship',1,now(),0,NULL,NULL,NULL,uuid(),NULL,NULL );
+
+            INSERT INTO relationship_type (a_is_to_b,b_is_to_a,preferred,weight,description,creator,date_created,retired,retired_by,date_retired,retire_reason,uuid,date_changed,changed_by) VALUES
+            ('Other','Other',0,0,'Other to Other relationship',1,now(),0,NULL,NULL,NULL,uuid(),NULL,NULL );
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809061254" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                     SELECT count(*) from idgen_seq_id_gen;
+            </sqlCheck>
+            <sqlCheck expectedResult="0">
+                     SELECT count(*) from idgen_identifier_source where `name` = 'Cairo';
+            </sqlCheck>
+            <sqlCheck expectedResult="0">
+              SELECT count(*) from patient_identifier_type where `name` = 'Patient Identifier' and format iS not NULL;
+            </sqlCheck>
+        </preConditions>
+        <comment> Setting up the Patient identifier </comment>
+        <sql>
+              UPDATE patient_identifier_type set format = '^[A,0-9,\/]+$' where `name` = 'Patient Identifier';
+
+              INSERT INTO idgen_identifier_source (uuid,name,identifier_type,creator,date_created,retired)
+              VALUES( uuid(), 'Cairo', (SELECT patient_identifier_type_id from patient_identifier_type where `name` = 'Patient Identifier'), 1, now(), 0);
+              INSERT INTO idgen_seq_id_gen (id,next_sequence_value,base_character_set,first_identifier_base,prefix,min_length,max_length)
+              VALUES((SELECT id from idgen_identifier_source where `name` = 'Cairo'),'12001','0123456789','12001','A', 6, 6);
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809061306" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="3">
+                     select count(*) from visit_type where `name` in ('LAB VISIT','OPD','IPD') and retired = 0;
+            </sqlCheck>
+        </preConditions>
+        <comment> Setting up the Visit Type </comment>
+        <sql>
+            Update visit_type set retired = 1 where `name` in ('LAB VISIT','OPD','IPD') and retired = 0;
+            INSERT INTO visit_type (name,creator,date_created,retired,uuid) values ('MDT', 1, now(), 0, uuid());
+            INSERT INTO visit_type (name,creator,date_created,retired,uuid) values ('Intake', 1, now(), 0, uuid());
+        </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201809061307" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                     select count(*) from global_property where property = 'mrs.genders';
+            </sqlCheck>
+        </preConditions>
+        <comment> Setting up the genders </comment>
+        <sql>
+          UPDATE global_property set property_value = '{"M":"Male", "F":"Female"}' where property = 'mrs.genders' ;
+        </sql>
+</changeSet>
+
+</databaseChangeLog>
