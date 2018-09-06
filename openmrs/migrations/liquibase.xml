@@ -111,9 +111,4 @@
         <comment>Add privileges to Manage Own Appointments role</comment>
         <sqlFile path="appointments/addPrivilegesToManageOwnAppointmentsRole.sql"/>
     </changeSet>
-    <changeSet id="MAADI-CONFIG-20180906" author="Pritam">
-        <comment>Adding All Concepts related to Lab</comment>
-        <sqlFile path="Registration_concepts.sql"/>
-    </changeSet>
-    <include file ="Registration_Page.xml"/>
 </databaseChangeLog>

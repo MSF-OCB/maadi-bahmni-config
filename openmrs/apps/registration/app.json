@@ -74,8 +74,8 @@
     "showBirthTime": false,
     "fieldValidation": {
       "Phone1": {
-        "pattern": "[0-9]{11}",
-        "errorMessage": "Should contain 11 characters"
+        "pattern": "[0-9]{4}-[0-9]{3} [0-9]{4}",
+        "errorMessage": "Should contain 11 characters and in format xxxx-xxx xxxx"
       },
       "UN number": {
         "pattern": "[5]{3}-[a-zA-Z0-9\\s]{8}",
@@ -100,10 +100,11 @@
     },
     "patientSearch": {
       "customAttributes": {
-        "label": "Phone1 / UN Number",
-        "placeholder": "Phone1 or UN Number",
+        "label": "Phone / UN Number",
+        "placeholder": "Phone or UN Number",
         "fields": [
           "Phone1",
+          "Phone2",
           "UN number"
         ]
       }
