@@ -41,7 +41,7 @@
                   <th>{{::'APPOINTMENT_SERVICE' |translate}}</th>
                   <th class="table-mid-width" ng-if="enableServiceTypes">{{::'APPOINTMENT_SERVICE_TYPE_FULL' |translate}}</th>
                   <th class="table-mid-width">{{::'APPOINTMENT_PROVIDER' |translate}}</th>
-                  <th class="table-mid-width">{{::'Additional Info' |translate}}</th>
+                  <th class="table-mid-width">{{::'APPOINTMENT_ADDITIONAL_INFO' |translate}}</th>
                   <th class="notes">{{::'APPOINTMENT_COMMENTS' |translate}}</th>
                   <!--  <th class="table-mid-width">{{::'APPOINTMENT_PATIENT_NAME' |translate}}</th> -->
                   <!--   <th class="width-change">{{::'APPOINTMENT_END_TIME_KEY' |translate}}</th> -->
@@ -57,7 +57,7 @@
                   <td>{{::appointment.service.name}}</td>
                   <td class="table-mid-width" ng-if="enableServiceTypes">{{::appointment.serviceType && (appointment.serviceType.name + ' [' + appointment.serviceType.duration + ' min]')}}</td>
                   <td class="table-mid-width">{{::appointment.provider.name}}</td>
-                  <td class="table-mid-width">{{::appointment.additionalInfo}}</td>
+                  <td class="table-mid-width">{{display(appointment.additionalInfo)}}</td>
                   <td>{{::appointment.comments}}</td>
                   <!--<td class="table-mid-width">{{::appointment.patient.name | titleCase}}</td> -->
                   <!--    <td>{{::appointment.endDateTime | bahmniTime}}</td> -->
