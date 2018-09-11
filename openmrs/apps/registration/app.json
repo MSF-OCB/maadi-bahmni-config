@@ -78,7 +78,7 @@
         "errorMessage": "Should contain 11 characters"
       },
       "UN number": {
-        "pattern": "[5]{3}-[a-zA-Z0-9\\s]{8}",
+        "pattern": "[5]{3}-[a-zA-Z0-9]{8}",
         "errorMessage": "Should be alphanumeric and in format 555-xxxxxxxx"
       },
       "Age": {
