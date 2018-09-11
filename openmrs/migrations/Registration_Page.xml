@@ -372,5 +372,15 @@
           UPDATE global_property set property_value = '{"M":"Male", "F":"Female"}' where property = 'mrs.genders' ;
         </sql>
 </changeSet>
-
+<changeSet id="MAADI-CONFIG-201809111750" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+              select count(*) from location where `name` = 'MSF Maadi Clinic' and retired = 0;
+            </sqlCheck>
+        </preConditions>
+        <comment> renaming login location </comment>
+        <sql>
+          update location set `name`= 'Maadi Clinic' where `name` = 'MSF Maadi Clinic' and retired = 0;
+        </sql>
+</changeSet>
 </databaseChangeLog>
