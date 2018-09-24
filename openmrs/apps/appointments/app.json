@@ -50,7 +50,7 @@
       "Missed": "#fceab6",
       "Cancelled": "#fcb6b6"
     },
-    "autoRefreshIntervalInSeconds": 60,
-    "enableResetAppointmentStatusesFor": ["Missed", "Cancelled"]
+    "autoRefreshIntervalInSeconds": 10,
+    "enableResetAppointmentStatusesFor": ["CheckedIn", "Missed", "Cancelled"]
   }
 }
