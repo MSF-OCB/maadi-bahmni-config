@@ -59,5 +59,6 @@ WHERE
                                     FROM appointment_service
                                     where voided = 0
                                   )
+  AND identifierOfPatient.identifier not in ('A00000')/*removing dummy patient from reports*/
 GROUP BY pai.patient_appointment_id
 ORDER BY pai.start_date_time;

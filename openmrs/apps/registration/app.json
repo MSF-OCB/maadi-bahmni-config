@@ -75,7 +75,7 @@
     "fieldValidation": {
       "Phone1": {
         "pattern": "[0-9]{11}",
-        "errorMessage": "Should contain 11 characters"
+        "errorMessage": "Should contain 11 digits"
       },
       "UN number": {
         "pattern": "[5]{3}-[a-zA-Z0-9]{8}",
@@ -87,15 +87,15 @@
       },
       "familyName": {
         "pattern": "[a-zA-Z]{0,}",
-        "errorMessage": "Should contain characters"
+        "errorMessage": "Maximum length of name allowed is 30"
       },
       "givenName": {
         "pattern": "[a-zA-Z]{0,30}",
-        "errorMessage": "Should contain characters"
+        "errorMessage": "Maximum length of name allowed is 30"
       },
       "middleName": {
         "pattern": "[a-zA-Z]{0,40}",
-        "errorMessage": "Should contain characters"
+        "errorMessage": "Maximum length of name allowed is 30"
       }
     },
     "patientSearch": {
@@ -110,7 +110,7 @@
     },
     "patientSearchResults": {
        "personAttributes": {
-         "fields": ["Language","UN number","Phone1","Phone2"]
+         "fields": ["Language","Other Language","UN number","Phone1","Phone2"]
   }
 }
 }
