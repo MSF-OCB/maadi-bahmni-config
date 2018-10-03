@@ -7,7 +7,7 @@
      }
   },
   "appointmentStatusReport": {
-   "name": "Appointment's Details",
+   "name": "Appointment Details",
     "type": "MRSGeneric",
     "config": {
         "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/appointment_status_report.sql"
