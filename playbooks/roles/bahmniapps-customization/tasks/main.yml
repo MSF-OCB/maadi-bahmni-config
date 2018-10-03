@@ -1,0 +1,22 @@
+---
+-
+  get_url:
+    dest: /opt/bahmni-web/etc/bahmniapps.zip
+    url: "{{ bahmniapps_url }}"
+  name: "Download bahmniapps.zip to /opt/bahmni-web/etc/"
+-
+  name: "Unzip downloaded bahmniapps file"
+  unarchive:
+    dest: /opt/bahmni-web/etc/bahmniapps
+    src: /opt/bahmni-web/etc/bahmniapps.zip
+-
+  file:
+    path: /opt/bahmni-web/etc/bahmniapps.zip
+    state: absent
+  name: "Delete bahmniapps.zip"
+-
+  file:
+    dest: /var/www/bahmniapps
+    src: /opt/bahmni-web/etc/bahmniapps
+    state: link
+  name: "Linking /var/www/bahmniapps to cairo bahmniapps"
