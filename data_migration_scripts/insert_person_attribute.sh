@@ -3,7 +3,7 @@
 while read line
 do
     IFS=',' read -r -a row <<< "$line"
-person_address=" insert into person_address (person_id,city_village,state_province,creator,date_created,voided,county_district,uuid) values ((select patient_id from patient_identifier where identifier = '${row[0]}' and voided = 0), IFNULL('${row[7]}',''),IFNULL('${row[9]}',''), (select user_id from users where username='admin'), now(), 0, IFNULL('${row[8]}',''), uuid()); "
+person_address=" insert into person_address (person_id,state_province,creator,date_created,voided,county_district,uuid) values ((select patient_id from patient_identifier where identifier = '${row[0]}' and voided = 0),IFNULL('${row[9]}',''), (select user_id from users where username='admin'), now(), 0, IFNULL('${row[8]}',''), uuid()); "
 
 person_attribute_nationality=" insert into person_attribute (person_id,value,person_attribute_type_id,creator,date_created,voided,uuid) values((select patient_id from patient_identifier where identifier = '${row[0]}' and voided = 0),IFNULL((SELECT concept_id from concept_view where concept_full_name = '${row[10]}' and retired = 0),''),(select person_attribute_type_id from person_attribute_type where name = 'Nationality' and retired = 0),(select user_id from users where username='admin'), now(), 0, uuid()); "
 
