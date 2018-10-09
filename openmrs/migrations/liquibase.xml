@@ -153,4 +153,5 @@
             <column name="privilege" value="Get Concepts"/>
         </insert>
     </changeSet>
+    <include file ="update_global_property.xml"/>
 </databaseChangeLog>
