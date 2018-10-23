@@ -39,7 +39,8 @@
         ]
       },
       "defaults": {
-        "Patient's scope": "In-Scope"
+        "Patient's scope": "In-Scope",
+        "In-scope Date": "today"
       }
     },
 		"forwardUrlsForVisitTypes": [
