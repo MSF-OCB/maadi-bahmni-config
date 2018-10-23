@@ -1,4 +1,5 @@
+
 - hosts: bahmni-emr
   become: yes
   roles:
-  - { role: bahmniapps-customization }
+    - { role: bahmni-mrs-batch }
