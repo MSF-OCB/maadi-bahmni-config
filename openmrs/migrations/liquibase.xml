@@ -159,4 +159,5 @@
         <sqlFile path="how_rech_msf_new_concept.sql"/>
     </changeSet>
     <include file ="Feedback_cycle_1.0.xml"/>
+    <include file ="PatientQueue.xml"/>
 </databaseChangeLog>
