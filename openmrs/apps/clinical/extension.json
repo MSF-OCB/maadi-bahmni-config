@@ -170,5 +170,75 @@
    "label": "filingroom",
    "order": 1,
    "requiredPrivilege": "app:clinical"
- }
+  },
+  "bahmniClinicalPatientsSearchRedTeam": {
+   "id": "bahmni.clinical.patients.search.redTeam",
+   "extensionPointId": "org.bahmni.patient.search",
+   "type": "config",
+   "extensionParams": {
+     "view": "tabular",
+     "searchHandler": "emrapi.sqlSearch.redTeamPatients",
+     "translationKey": "MODULE_LABEL_RED_TEAM_KEY",
+     "forwardUrl": "#/default/patient/{{patientUuid}}/dashboard"
+   },
+   "label": "redteam",
+   "order": 2,
+   "requiredPrivilege": "app:clinical"
+ },
+ "bahmniClinicalPatientsSearchBlueTeam": {
+  "id": "bahmni.clinical.patients.search.blueTeam",
+  "extensionPointId": "org.bahmni.patient.search",
+  "type": "config",
+  "extensionParams": {
+    "view": "tabular",
+    "searchHandler": "emrapi.sqlSearch.blueTeamPatients",
+    "translationKey": "MODULE_LABEL_BLUE_TEAM_KEY",
+    "forwardUrl": "#/default/patient/{{patientUuid}}/dashboard"
+  },
+  "label": "blueteam",
+  "order": 3,
+  "requiredPrivilege": "app:clinical"
+},
+"bahmniClinicalPatientsSearchGreenTeam": {
+ "id": "bahmni.clinical.patients.search.greenTeam",
+ "extensionPointId": "org.bahmni.patient.search",
+ "type": "config",
+ "extensionParams": {
+   "view": "tabular",
+   "searchHandler": "emrapi.sqlSearch.greenTeamPatients",
+   "translationKey": "MODULE_LABEL_GREEN_TEAM_KEY",
+   "forwardUrl": "#/default/patient/{{patientUuid}}/dashboard"
+ },
+ "label": "greenteam",
+ "order": 4,
+ "requiredPrivilege": "app:clinical"
+},
+"bahmniClinicalPatientsSearchOrangeTeam": {
+ "id": "bahmni.clinical.patients.search.orangeTeam",
+ "extensionPointId": "org.bahmni.patient.search",
+ "type": "config",
+ "extensionParams": {
+   "view": "tabular",
+   "searchHandler": "emrapi.sqlSearch.orangeTeamPatients",
+   "translationKey": "MODULE_LABEL_ORANGE_TEAM_KEY",
+   "forwardUrl": "#/default/patient/{{patientUuid}}/dashboard"
+ },
+ "label": "orangeteam",
+ "order": 5,
+ "requiredPrivilege": "app:clinical"
+},
+"bahmniClinicalPatientsSearchEmergencyPatient": {
+ "id": "bahmni.clinical.patients.search.emergency",
+ "extensionPointId": "org.bahmni.patient.search",
+ "type": "config",
+ "extensionParams": {
+   "view": "tabular",
+   "searchHandler": "emrapi.sqlSearch.emergencyPatients",
+   "translationKey": "MODULE_LABEL_EMERGENCY_KEY",
+   "forwardUrl": "#/default/patient/{{patientUuid}}/dashboard"
+ },
+ "label": "emergency",
+ "order": 6,
+ "requiredPrivilege": "app:clinical"
+}
 }
