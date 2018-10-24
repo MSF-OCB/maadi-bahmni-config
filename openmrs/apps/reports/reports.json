@@ -12,5 +12,12 @@
     "config": {
         "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/appointment_status_report.sql"
     }
+  },
+  "patientDemographicInfo": {
+   "name": "Patient Demographic Information",
+    "type": "MRSGeneric",
+    "config": {
+        "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/patient_demographic_info.sql"
+    }
   }
 }

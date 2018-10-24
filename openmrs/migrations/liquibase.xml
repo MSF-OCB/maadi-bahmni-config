@@ -154,4 +154,9 @@
         </insert>
     </changeSet>
     <include file ="update_global_property.xml"/>
+    <changeSet id="MAADI-CONFIG-201810232316" author="Pritam">
+        <comment>Adding All Concepts related to Lab</comment>
+        <sqlFile path="how_rech_msf_new_concept.sql"/>
+    </changeSet>
+    <include file ="Feedback_cycle_1.0.xml"/>
 </databaseChangeLog>
