@@ -145,4 +145,36 @@
                 where property= 'emrapi.sqlSearch.filingRoom';
              </sql>
           </changeSet>
+          <changeSet id="MAADI-CONFIG-201810251540" author="Pritam">
+
+               <comment> Updating the filing room queue </comment>
+               <sql>
+                 update global_property set property_value =
+                  "SELECT
+                  distinct
+                  pi.identifier as identifier,
+                  GROUP_CONCAT(DISTINCT pnpro.given_name, ' ', ifnull(pnpro.family_name, '')) as Provider,
+                  GROUP_CONCAT(DISTINCT service.name SEPARATOR ',') AS 'Team',
+                  GROUP_CONCAT(DISTINCT serviceType.name SEPARATOR ',') AS 'ServiceAppointmentTypes'
+                  From
+                  visit v
+                  INNER JOIN visit_type vt on v.visit_type_id = vt.visit_type_id  and vt.retired = 0
+                  LEFT JOIN patient_appointment pai on pai.patient_id = v.patient_id and pai.voided = 0  AND DATE(pai.start_date_time) =  DATE(CURDATE())
+                  INNER join patient_identifier pi on v.patient_id = pi.patient_id
+                  LEFT JOIN appointment_service service on pai.appointment_service_id = service.appointment_service_id and service.voided = 0
+                  LEFT JOIN appointment_service_type serviceType ON service.appointment_service_id = serviceType.appointment_service_id AND pai.appointment_service_type_id = serviceType.appointment_service_type_id AND serviceType.voided = 0
+                  LEFT JOIN provider pro on pai.provider_id = pro.provider_id
+                  LEFT JOIN person_name pnpro on pnpro.person_id = pro.person_id
+
+                  WHERE pi.identifier not in ('A00000')
+                  AND DATE(v.date_started) =  DATE(CURDATE())
+                  and ifnull(CONCAT(vt.name,pai.status),'NoStatusCheck') != 'MDTCancelled'/*To check if the patient is having cancelled appointment with MDT visit open*/
+                  and vt.name = 'MDT'
+                  AND v.date_stopped is null
+                  AND v.voided = 0
+                  GROUP BY pi.identifier
+                  ORDER BY v.date_started DESC;"
+                  where property= 'emrapi.sqlSearch.filingRoom';
+               </sql>
+            </changeSet>
 </databaseChangeLog>
