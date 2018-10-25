@@ -535,4 +535,424 @@
            </sql>
          </changeSet>
 
+         <changeSet id="MAADI-CONFIG-201810251548" author="Pritam">
+
+              <comment> Updating the Red Team </comment>
+              <sql>
+                update global_property set property_value =
+                 "select
+                    distinct
+                    pi.identifier as identifier,
+                    pn.given_name as 'First Name',
+                    result.Provider,
+                    result.ServiceType as 'Service Type',
+                    result.AppointmentTime AS 'Appointment Time',
+                    result.Language,
+                    concat('', p.uuid) as uuid,
+                    concat('', v.uuid) as activeVisitUuid
+                  from
+                    visit v
+                    join person_name pn on v.patient_id = pn.person_id and pn.voided = 0
+                    join patient_identifier pi on v.patient_id = pi.patient_id
+                    join patient_identifier_type pit on pi.identifier_type = pit.patient_identifier_type_id
+                    join global_property gp on gp.property = 'bahmni.primaryIdentifierType' and gp.property_value = pit.uuid
+                    join person p on p.person_id = v.patient_id
+
+                    INNER JOIN (
+                              select
+                              pa.patient_id,
+                              pai.start_date_time,
+                              visitDate.date_started,
+                              visitDate.visit_id AS 'visit_id',
+                              patientName.given_name as 'FirstName',
+                              GROUP_CONCAT(DISTINCT DATE_FORMAT(pai.start_date_time, '%I:%i %p')  SEPARATOR ', ') AS 'AppointmentTime',
+                              GROUP_CONCAT(DISTINCT service.name SEPARATOR ', ') AS 'Service',
+                              GROUP_CONCAT(DISTINCT serviceType.name SEPARATOR ', ') AS 'ServiceType',
+                              GROUP_CONCAT(DISTINCT case when concat(gettingProviderName.given_name,' ',gettingProviderName.family_name) is NULL then 'No Provider' else concat(gettingProviderName.given_name,' ',gettingProviderName.family_name) end SEPARATOR ', ') AS 'Provider',
+                              (CASE WHEN language.concept_full_name is not null and otherLanguage.value is Not NULL
+                              then concat_ws(', ',language.concept_full_name,otherLanguage.value)
+                              WHEN language.concept_full_name is not null and otherLanguage.value is NULL then language.concept_full_name
+                              WHEN language.concept_full_name is null and otherLanguage.value is NOT NULL THEN otherLanguage.value
+                              ELSE NULL END) AS 'Language'
+
+                              from
+                              patient pa
+                              Inner join person_name patientName on pa.patient_id = patientName.person_id
+                              INNER JOIN patient_appointment pai on pa.patient_id = pai.patient_id and pai.voided = 0
+                              LEFT JOIN appointment_service service on pai.appointment_service_id = service.appointment_service_id and service.voided = 0
+                              LEFT JOIN appointment_service_type serviceType ON service.appointment_service_id = serviceType.appointment_service_id AND pai.appointment_service_type_id = serviceType.appointment_service_type_id AND serviceType.voided = 0
+                              LEFT JOIN visit visitDate ON pa.patient_id = visitDate.patient_id AND visitDate.voided = 0 AND visitDate.date_stopped is NULL AND visitDate.visit_type_id in(SELECT visit_type_id from visit_type where `name` = 'MDT' and retired = 0)
+
+                              LEFT JOIN
+                                      (
+                                      SELECT providerForAppointment.person_id,
+                                      providerForAppointment.provider_id,
+                                      nameOfTheProviders.given_name,
+                                      nameOfTheProviders.family_name
+                                      From provider providerForAppointment
+                                      LEFT JOIN person_name nameOfTheProviders ON providerForAppointment.person_id = nameOfTheProviders.person_id
+                                      ) AS gettingProviderName ON gettingProviderName.provider_id = pai.provider_id
+                              Left Join
+                                (/*Getting the value for language*/
+                                Select attributeOfPatient.person_id,cv.concept_full_name from person_attribute attributeOfPatient
+                                inner JOIN person_attribute_type typeOfPatientAttribute
+                                ON attributeOfPatient.person_attribute_type_id =typeOfPatientAttribute.person_attribute_type_id
+                                inner JOIN concept_view cv ON cv.concept_id = attributeOfPatient.value
+                                where  typeOfPatientAttribute.name = 'Language' and attributeOfPatient.voided = 0
+                                ) as language on pai.patient_id = language.person_id
+
+                              Left join
+                               (/*Getting the value for Other language*/
+                                Select attributeOfPatient.person_id,attributeOfPatient.value from person_attribute attributeOfPatient
+                                inner JOIN person_attribute_type typeOfPatientAttribute
+                                ON attributeOfPatient.person_attribute_type_id =typeOfPatientAttribute.person_attribute_type_id
+                                where  typeOfPatientAttribute.name = 'Other Language' and attributeOfPatient.voided = 0
+                                ) as otherLanguage on pai.patient_id = otherLanguage.person_id
+                              WHERE service.name = 'Red Team'
+                              AND DATE(pai.start_date_time) =  DATE(CURDATE()) AND pai.status not in ('Cancelled')
+                              Group by pa.patient_id
+                              ORDER BY visitDate.date_started,pai.start_date_time
+                    ) AS result ON result.patient_id = v.patient_id AND result.visit_id = v.visit_id
+                  where
+                    v.date_stopped is null AND pi.identifier not in ('A00000')
+                    AND v.voided = 0
+                    ORDER BY result.date_started DESC
+                  ;"
+                 where property= 'emrapi.sqlSearch.redTeamPatients';
+              </sql>
+           </changeSet>
+           <changeSet id="MAADI-CONFIG-201810251549" author="Pritam">
+
+              <comment> Updating the Blue Team </comment>
+              <sql>
+                update global_property set property_value =
+                 "select
+                    distinct
+                    pi.identifier as identifier,
+                    pn.given_name as 'First Name',
+                    result.Provider,
+                    result.ServiceType as 'Service Type',
+                    result.AppointmentTime AS 'Appointment Time',
+                    result.Language,
+                    concat('', p.uuid) as uuid,
+                    concat('', v.uuid) as activeVisitUuid
+                  from
+                    visit v
+                    join person_name pn on v.patient_id = pn.person_id and pn.voided = 0
+                    join patient_identifier pi on v.patient_id = pi.patient_id
+                    join patient_identifier_type pit on pi.identifier_type = pit.patient_identifier_type_id
+                    join global_property gp on gp.property = 'bahmni.primaryIdentifierType' and gp.property_value = pit.uuid
+                    join person p on p.person_id = v.patient_id
+
+                    INNER JOIN (
+                              select
+                              pa.patient_id,
+                              pai.start_date_time,
+                              visitDate.date_started,
+                              visitDate.visit_id AS 'visit_id',
+                              patientName.given_name as 'FirstName',
+                              GROUP_CONCAT(DISTINCT DATE_FORMAT(pai.start_date_time, '%I:%i %p')  SEPARATOR ', ') AS 'AppointmentTime',
+                              GROUP_CONCAT(DISTINCT service.name SEPARATOR ', ') AS 'Service',
+                              GROUP_CONCAT(DISTINCT serviceType.name SEPARATOR ', ') AS 'ServiceType',
+                              GROUP_CONCAT(DISTINCT case when concat(gettingProviderName.given_name,' ',gettingProviderName.family_name) is NULL then 'No Provider' else concat(gettingProviderName.given_name,' ',gettingProviderName.family_name) end SEPARATOR ', ') AS 'Provider',
+                              (CASE WHEN language.concept_full_name is not null and otherLanguage.value is Not NULL
+                              then concat_ws(', ',language.concept_full_name,otherLanguage.value)
+                              WHEN language.concept_full_name is not null and otherLanguage.value is NULL then language.concept_full_name
+                              WHEN language.concept_full_name is null and otherLanguage.value is NOT NULL THEN otherLanguage.value
+                              ELSE NULL END) AS 'Language'
+
+                              from
+                              patient pa
+                              Inner join person_name patientName on pa.patient_id = patientName.person_id
+                              INNER JOIN patient_appointment pai on pa.patient_id = pai.patient_id and pai.voided = 0
+                              LEFT JOIN appointment_service service on pai.appointment_service_id = service.appointment_service_id and service.voided = 0
+                              LEFT JOIN appointment_service_type serviceType ON service.appointment_service_id = serviceType.appointment_service_id AND pai.appointment_service_type_id = serviceType.appointment_service_type_id AND serviceType.voided = 0
+                              LEFT JOIN visit visitDate ON pa.patient_id = visitDate.patient_id AND visitDate.voided = 0 AND visitDate.date_stopped is NULL AND visitDate.visit_type_id in(SELECT visit_type_id from visit_type where `name` = 'MDT' and retired = 0)
+
+                              LEFT JOIN
+                                      (
+                                      SELECT providerForAppointment.person_id,
+                                      providerForAppointment.provider_id,
+                                      nameOfTheProviders.given_name,
+                                      nameOfTheProviders.family_name
+                                      From provider providerForAppointment
+                                      LEFT JOIN person_name nameOfTheProviders ON providerForAppointment.person_id = nameOfTheProviders.person_id
+                                      ) AS gettingProviderName ON gettingProviderName.provider_id = pai.provider_id
+                              Left Join
+                                (/*Getting the value for language*/
+                                Select attributeOfPatient.person_id,cv.concept_full_name from person_attribute attributeOfPatient
+                                inner JOIN person_attribute_type typeOfPatientAttribute
+                                ON attributeOfPatient.person_attribute_type_id =typeOfPatientAttribute.person_attribute_type_id
+                                inner JOIN concept_view cv ON cv.concept_id = attributeOfPatient.value
+                                where  typeOfPatientAttribute.name = 'Language' and attributeOfPatient.voided = 0
+                                ) as language on pai.patient_id = language.person_id
+
+                              Left join
+                               (/*Getting the value for Other language*/
+                                Select attributeOfPatient.person_id,attributeOfPatient.value from person_attribute attributeOfPatient
+                                inner JOIN person_attribute_type typeOfPatientAttribute
+                                ON attributeOfPatient.person_attribute_type_id =typeOfPatientAttribute.person_attribute_type_id
+                                where  typeOfPatientAttribute.name = 'Other Language' and attributeOfPatient.voided = 0
+                                ) as otherLanguage on pai.patient_id = otherLanguage.person_id
+                              WHERE service.name = 'Blue Team'
+                              AND DATE(pai.start_date_time) =  DATE(CURDATE()) AND pai.status not in ('Cancelled')
+                              Group by pa.patient_id
+                              ORDER BY visitDate.date_started,pai.start_date_time
+                    ) AS result ON result.patient_id = v.patient_id AND result.visit_id = v.visit_id
+                  where
+                    v.date_stopped is null AND pi.identifier not in ('A00000')
+                    AND v.voided = 0
+                    ORDER BY result.date_started DESC
+                  ;"
+                 where property= 'emrapi.sqlSearch.blueTeamPatients';
+              </sql>
+           </changeSet>
+           <changeSet id="MAADI-CONFIG-201810251550" author="Pritam">
+
+              <comment> Updating the Green Team </comment>
+              <sql>
+                update global_property set property_value =
+                 "select
+                    distinct
+                    pi.identifier as identifier,
+                    pn.given_name as 'First Name',
+                    result.Provider,
+                    result.ServiceType as 'Service Type',
+                    result.AppointmentTime AS 'Appointment Time',
+                    result.Language,
+                    concat('', p.uuid) as uuid,
+                    concat('', v.uuid) as activeVisitUuid
+                  from
+                    visit v
+                    join person_name pn on v.patient_id = pn.person_id and pn.voided = 0
+                    join patient_identifier pi on v.patient_id = pi.patient_id
+                    join patient_identifier_type pit on pi.identifier_type = pit.patient_identifier_type_id
+                    join global_property gp on gp.property = 'bahmni.primaryIdentifierType' and gp.property_value = pit.uuid
+                    join person p on p.person_id = v.patient_id
+
+                    INNER JOIN (
+                              select
+                              pa.patient_id,
+                              pai.start_date_time,
+                              visitDate.date_started,
+                              visitDate.visit_id AS 'visit_id',
+                              patientName.given_name as 'FirstName',
+                              GROUP_CONCAT(DISTINCT DATE_FORMAT(pai.start_date_time, '%I:%i %p')  SEPARATOR ', ') AS 'AppointmentTime',
+                              GROUP_CONCAT(DISTINCT service.name SEPARATOR ', ') AS 'Service',
+                              GROUP_CONCAT(DISTINCT serviceType.name SEPARATOR ', ') AS 'ServiceType',
+                              GROUP_CONCAT(DISTINCT case when concat(gettingProviderName.given_name,' ',gettingProviderName.family_name) is NULL then 'No Provider' else concat(gettingProviderName.given_name,' ',gettingProviderName.family_name) end SEPARATOR ', ') AS 'Provider',
+                              (CASE WHEN language.concept_full_name is not null and otherLanguage.value is Not NULL
+                              then concat_ws(', ',language.concept_full_name,otherLanguage.value)
+                              WHEN language.concept_full_name is not null and otherLanguage.value is NULL then language.concept_full_name
+                              WHEN language.concept_full_name is null and otherLanguage.value is NOT NULL THEN otherLanguage.value
+                              ELSE NULL END) AS 'Language'
+
+                              from
+                              patient pa
+                              Inner join person_name patientName on pa.patient_id = patientName.person_id
+                              INNER JOIN patient_appointment pai on pa.patient_id = pai.patient_id and pai.voided = 0
+                              LEFT JOIN appointment_service service on pai.appointment_service_id = service.appointment_service_id and service.voided = 0
+                              LEFT JOIN appointment_service_type serviceType ON service.appointment_service_id = serviceType.appointment_service_id AND pai.appointment_service_type_id = serviceType.appointment_service_type_id AND serviceType.voided = 0
+                              LEFT JOIN visit visitDate ON pa.patient_id = visitDate.patient_id AND visitDate.voided = 0 AND visitDate.date_stopped is NULL AND visitDate.visit_type_id in(SELECT visit_type_id from visit_type where `name` = 'MDT' and retired = 0)
+
+                              LEFT JOIN
+                                      (
+                                      SELECT providerForAppointment.person_id,
+                                      providerForAppointment.provider_id,
+                                      nameOfTheProviders.given_name,
+                                      nameOfTheProviders.family_name
+                                      From provider providerForAppointment
+                                      LEFT JOIN person_name nameOfTheProviders ON providerForAppointment.person_id = nameOfTheProviders.person_id
+                                      ) AS gettingProviderName ON gettingProviderName.provider_id = pai.provider_id
+                              Left Join
+                                (/*Getting the value for language*/
+                                Select attributeOfPatient.person_id,cv.concept_full_name from person_attribute attributeOfPatient
+                                inner JOIN person_attribute_type typeOfPatientAttribute
+                                ON attributeOfPatient.person_attribute_type_id =typeOfPatientAttribute.person_attribute_type_id
+                                inner JOIN concept_view cv ON cv.concept_id = attributeOfPatient.value
+                                where  typeOfPatientAttribute.name = 'Language' and attributeOfPatient.voided = 0
+                                ) as language on pai.patient_id = language.person_id
+
+                              Left join
+                               (/*Getting the value for Other language*/
+                                Select attributeOfPatient.person_id,attributeOfPatient.value from person_attribute attributeOfPatient
+                                inner JOIN person_attribute_type typeOfPatientAttribute
+                                ON attributeOfPatient.person_attribute_type_id =typeOfPatientAttribute.person_attribute_type_id
+                                where  typeOfPatientAttribute.name = 'Other Language' and attributeOfPatient.voided = 0
+                                ) as otherLanguage on pai.patient_id = otherLanguage.person_id
+                              WHERE service.name = 'Green Team'
+                              AND DATE(pai.start_date_time) =  DATE(CURDATE()) AND pai.status not in ('Cancelled')
+                              Group by pa.patient_id
+                              ORDER BY visitDate.date_started,pai.start_date_time
+                    ) AS result ON result.patient_id = v.patient_id AND result.visit_id = v.visit_id
+                  where
+                    v.date_stopped is null AND pi.identifier not in ('A00000')
+                    AND v.voided = 0
+                    ORDER BY result.date_started DESC
+                  ;"
+                 where property= 'emrapi.sqlSearch.greenTeamPatients';
+              </sql>
+            </changeSet>
+            <changeSet id="MAADI-CONFIG-201810251551" author="Pritam">
+
+              <comment> Updating the Orange Team </comment>
+              <sql>
+                update global_property set property_value =
+                 "select
+                    distinct
+                    pi.identifier as identifier,
+                    pn.given_name as 'First Name',
+                    result.Provider,
+                    result.ServiceType as 'Service Type',
+                    result.AppointmentTime AS 'Appointment Time',
+                    result.Language,
+                    concat('', p.uuid) as uuid,
+                    concat('', v.uuid) as activeVisitUuid
+                  from
+                    visit v
+                    join person_name pn on v.patient_id = pn.person_id and pn.voided = 0
+                    join patient_identifier pi on v.patient_id = pi.patient_id
+                    join patient_identifier_type pit on pi.identifier_type = pit.patient_identifier_type_id
+                    join global_property gp on gp.property = 'bahmni.primaryIdentifierType' and gp.property_value = pit.uuid
+                    join person p on p.person_id = v.patient_id
+
+                    INNER JOIN (
+                              select
+                              pa.patient_id,
+                              pai.start_date_time,
+                              visitDate.date_started,
+                              visitDate.visit_id AS 'visit_id',
+                              patientName.given_name as 'FirstName',
+                              GROUP_CONCAT(DISTINCT DATE_FORMAT(pai.start_date_time, '%I:%i %p')  SEPARATOR ', ') AS 'AppointmentTime',
+                              GROUP_CONCAT(DISTINCT service.name SEPARATOR ', ') AS 'Service',
+                              GROUP_CONCAT(DISTINCT serviceType.name SEPARATOR ', ') AS 'ServiceType',
+                              GROUP_CONCAT(DISTINCT case when concat(gettingProviderName.given_name,' ',gettingProviderName.family_name) is NULL then 'No Provider' else concat(gettingProviderName.given_name,' ',gettingProviderName.family_name) end SEPARATOR ', ') AS 'Provider',
+                              (CASE WHEN language.concept_full_name is not null and otherLanguage.value is Not NULL
+                              then concat_ws(', ',language.concept_full_name,otherLanguage.value)
+                              WHEN language.concept_full_name is not null and otherLanguage.value is NULL then language.concept_full_name
+                              WHEN language.concept_full_name is null and otherLanguage.value is NOT NULL THEN otherLanguage.value
+                              ELSE NULL END) AS 'Language'
+
+                              from
+                              patient pa
+                              Inner join person_name patientName on pa.patient_id = patientName.person_id
+                              INNER JOIN patient_appointment pai on pa.patient_id = pai.patient_id and pai.voided = 0
+                              LEFT JOIN appointment_service service on pai.appointment_service_id = service.appointment_service_id and service.voided = 0
+                              LEFT JOIN appointment_service_type serviceType ON service.appointment_service_id = serviceType.appointment_service_id AND pai.appointment_service_type_id = serviceType.appointment_service_type_id AND serviceType.voided = 0
+                              LEFT JOIN visit visitDate ON pa.patient_id = visitDate.patient_id AND visitDate.voided = 0 AND visitDate.date_stopped is NULL AND visitDate.visit_type_id in(SELECT visit_type_id from visit_type where `name` = 'MDT' and retired = 0)
+
+                              LEFT JOIN
+                                      (
+                                      SELECT providerForAppointment.person_id,
+                                      providerForAppointment.provider_id,
+                                      nameOfTheProviders.given_name,
+                                      nameOfTheProviders.family_name
+                                      From provider providerForAppointment
+                                      LEFT JOIN person_name nameOfTheProviders ON providerForAppointment.person_id = nameOfTheProviders.person_id
+                                      ) AS gettingProviderName ON gettingProviderName.provider_id = pai.provider_id
+                              Left Join
+                                (/*Getting the value for language*/
+                                Select attributeOfPatient.person_id,cv.concept_full_name from person_attribute attributeOfPatient
+                                inner JOIN person_attribute_type typeOfPatientAttribute
+                                ON attributeOfPatient.person_attribute_type_id =typeOfPatientAttribute.person_attribute_type_id
+                                inner JOIN concept_view cv ON cv.concept_id = attributeOfPatient.value
+                                where  typeOfPatientAttribute.name = 'Language' and attributeOfPatient.voided = 0
+                                ) as language on pai.patient_id = language.person_id
+
+                              Left join
+                               (/*Getting the value for Other language*/
+                                Select attributeOfPatient.person_id,attributeOfPatient.value from person_attribute attributeOfPatient
+                                inner JOIN person_attribute_type typeOfPatientAttribute
+                                ON attributeOfPatient.person_attribute_type_id =typeOfPatientAttribute.person_attribute_type_id
+                                where  typeOfPatientAttribute.name = 'Other Language' and attributeOfPatient.voided = 0
+                                ) as otherLanguage on pai.patient_id = otherLanguage.person_id
+                              WHERE service.name = 'Orange Team'
+                              AND DATE(pai.start_date_time) =  DATE(CURDATE()) AND pai.status not in ('Cancelled')
+                              Group by pa.patient_id
+                              ORDER BY visitDate.date_started,pai.start_date_time
+                    ) AS result ON result.patient_id = v.patient_id AND result.visit_id = v.visit_id
+                  where
+                    v.date_stopped is null AND pi.identifier not in ('A00000')
+                    AND v.voided = 0
+                    ORDER BY result.date_started DESC
+                  ;"
+                 where property= 'emrapi.sqlSearch.orangeTeamPatients';
+              </sql>
+            </changeSet>
+            <changeSet id="MAADI-CONFIG-201810251552" author="Pritam">
+
+              <comment> Updating the Emergency Patient  </comment>
+              <sql>
+                update global_property set property_value =
+                 "select distinct
+                   pi.identifier as identifier,
+                   pn.given_name as 'First Name',
+                   result.Language as Language,
+                   concat('', p.uuid) as uuid,
+                   concat('', v.uuid) as activeVisitUuid
+                from
+                   visit v
+                   join
+                      person_name pn
+                      on v.patient_id = pn.person_id
+                      and pn.voided = 0
+                   join
+                      patient_identifier pi
+                      on v.patient_id = pi.patient_id
+                   join
+                      patient_identifier_type pit
+                      on pi.identifier_type = pit.patient_identifier_type_id
+                   join
+                      global_property gp
+                      on gp.property = 'bahmni.primaryIdentifierType'
+                      and gp.property_value = pit.uuid
+                   join
+                      person p
+                      on p.person_id = v.patient_id
+
+                   INNER JOIN
+                      (
+                        select
+                            v.patient_id,
+                            v.date_started,
+                            v.visit_id,
+                            (CASE WHEN language.concept_full_name is not null and otherLanguage.value is Not NULL
+                            then concat_ws(', ',language.concept_full_name,otherLanguage.value)
+                            WHEN language.concept_full_name is not null and otherLanguage.value is NULL then language.concept_full_name
+                            WHEN language.concept_full_name is null and otherLanguage.value is NOT NULL THEN otherLanguage.value
+                            ELSE NULL END) AS 'Language'
+                            FROM
+                            patient p
+                            inner join visit v ON p.patient_id = v.patient_id and v.date_stopped is NULL
+                            INNER JOIN visit_type vt on v.visit_type_id = vt.visit_type_id and vt.name = 'MDT' and vt.retired = 0
+                            AND v.patient_id NOT in (select patient_id from patient_appointment)
+
+                            Left Join
+                              (/*Getting the value for language*/
+                              Select attributeOfPatient.person_id,cv.concept_full_name from person_attribute attributeOfPatient
+                              inner JOIN person_attribute_type typeOfPatientAttribute
+                              ON attributeOfPatient.person_attribute_type_id =typeOfPatientAttribute.person_attribute_type_id
+                              inner JOIN concept_view cv ON cv.concept_id = attributeOfPatient.value
+                              where  typeOfPatientAttribute.name = 'Language' and attributeOfPatient.voided = 0
+                              ) as language on v.patient_id = language.person_id
+
+                            Left join
+                             (/*Getting the value for Other language*/
+                              Select attributeOfPatient.person_id,attributeOfPatient.value from person_attribute attributeOfPatient
+                              inner JOIN person_attribute_type typeOfPatientAttribute
+                              ON attributeOfPatient.person_attribute_type_id =typeOfPatientAttribute.person_attribute_type_id
+                              where  typeOfPatientAttribute.name = 'Other Language' and attributeOfPatient.voided = 0
+                              ) as otherLanguage on v.patient_id = otherLanguage.person_id
+                      )
+                      AS result
+                      ON result.patient_id = v.patient_id
+                      AND result.visit_id = v.visit_id
+                where
+                   v.date_stopped is null AND pi.identifier not in ('A00000')
+                   AND v.voided = 0
+                   ORDER BY v.date_started DESC;"
+                 where property= 'emrapi.sqlSearch.emergencyPatients';
+              </sql>
+            </changeSet>
+
 </databaseChangeLog>
