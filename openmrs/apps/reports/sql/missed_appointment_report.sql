@@ -8,9 +8,11 @@ SELECT
   serviceTypeAppointment.name AS "Appointment Service Type",
   DATE(pai.start_date_time) AS  "Date of Appointment",
   DATE_FORMAT(pai.start_date_time, '%I:%i %p') AS "Appointment Time",
-  (CASE WHEN language.concept_full_name ="Other"
-    THEN CONCAT(ifnull(language.concept_full_name,''),case when otherLanguage.value is null then '' else ',' end,ifnull(otherLanguage.value ,''))
-    ELSE ifnull(language.concept_full_name,'') END) AS "Patient's Language",
+  (CASE WHEN language.concept_full_name is not null and otherLanguage.value is Not NULL
+      then concat_ws(', ',language.concept_full_name,otherLanguage.value)
+      WHEN language.concept_full_name is not null and otherLanguage.value is NULL then language.concept_full_name
+      WHEN language.concept_full_name is null and otherLanguage.value is NOT NULL THEN otherLanguage.value
+      ELSE NULL END) AS "Patient's Language",
   pai.comments AS "Notes"
 
 FROM
