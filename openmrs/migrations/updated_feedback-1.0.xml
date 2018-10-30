@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+       http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+<changeSet id="MAADI-CONFIG-201810291034" author="Pritam">
+      <preConditions onFail="MARK_RAN">
+              <sqlCheck expectedResult="9">
+                     SELECT count(*) from concept_answer  where concept_id in(SELECT concept_id from concept_name where name = 'How reach MSF');
+              </sqlCheck>
+      </preConditions>
+              <comment>Removing Answers from How reach MSF </comment>
+              <sql>
+                  delete from concept_answer where concept_id in(SELECT concept_id from concept_name where name = 'How reach MSF');
+              </sql>
+</changeSet>
+<changeSet id="MAADI-CONFIG-201810291035" author="Pritam">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                   SELECT count(*) from concept_answer  where concept_id in(SELECT concept_id from concept_name where name = 'How reach MSF');
+            </sqlCheck>
+        </preConditions>
+        <comment>Adding Answers to How reach MSF </comment>
+        <sql>
+            set @concept_id = 0;
+            set @child1_concept_id = 0;
+            set @child2_concept_id = 0;
+            set @child3_concept_id = 0;
+            set @child4_concept_id = 0;
+            set @child5_concept_id = 0;
+            set @child6_concept_id = 0;
+            set @child7_concept_id = 0;
+            set @child8_concept_id = 0;
+            set @child9_concept_id = 0;
+            set @child10_concept_id = 0;
+            set @child11_concept_id = 0;
+            set @child12_concept_id = 0;
+
+            SELECT concept_id into @concept_id from concept_name where name = 'How reach MSF' and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+
+            SELECT concept_id into @child1_concept_id from concept_name where name = "Amira Office" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child2_concept_id from concept_name where name = "Caritas" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child3_concept_id from concept_name where name = "Community" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child4_concept_id from concept_name where name = "Friend" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child5_concept_id from concept_name where name = "Health Promoter" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child6_concept_id from concept_name where name = "Nadim" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child7_concept_id from concept_name where name = "Partner" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child8_concept_id from concept_name where name = "PSTIC" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child9_concept_id from concept_name where name = "Saint Andrew" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child10_concept_id from concept_name where name = "Self Referral" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child11_concept_id from concept_name where name = "UNHCR" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+            SELECT concept_id into @child12_concept_id from concept_name where name = "Other" and concept_name_type = 'FULLY_SPECIFIED' and voided = 0;
+
+
+            call add_concept_answer(@concept_id, @child1_concept_id, 1);
+            call add_concept_answer(@concept_id, @child2_concept_id, 2);
+            call add_concept_answer(@concept_id, @child3_concept_id, 3);
+            call add_concept_answer(@concept_id, @child4_concept_id, 4);
+            call add_concept_answer(@concept_id, @child5_concept_id, 5);
+            call add_concept_answer(@concept_id, @child6_concept_id, 6);
+            call add_concept_answer(@concept_id, @child7_concept_id, 7);
+            call add_concept_answer(@concept_id, @child8_concept_id, 8);
+            call add_concept_answer(@concept_id, @child9_concept_id, 9);
+            call add_concept_answer(@concept_id, @child10_concept_id, 10);
+            call add_concept_answer(@concept_id, @child11_concept_id, 11);
+            call add_concept_answer(@concept_id, @child12_concept_id, 12);
+        </sql>
+</changeSet>
+</databaseChangeLog>

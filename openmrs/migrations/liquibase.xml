@@ -160,4 +160,9 @@
     </changeSet>
     <include file ="Feedback_cycle_1.0.xml"/>
     <include file ="PatientQueue.xml"/>
+    <changeSet id="MAADI-CONFIG-201810291944" author="Pritam">
+        <comment>Adding All Concepts related to how reach msf</comment>
+        <sqlFile path="updated_feedback-1.0.sql"/>
+    </changeSet>
+    <include file ="updated_feedback-1.0.xml"/>
 </databaseChangeLog>
