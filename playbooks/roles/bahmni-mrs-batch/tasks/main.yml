@@ -11,7 +11,7 @@
     dest: "/opt/openmrs/modules/appointments-1.1-SNAPSHOT.omod"
 
 - name: "Rename bahmni core omod"
-  command: "mv /tmp/bahmnicore-omod-0.91-SNAPSHOT.omod /tmp/bahmnicore-0.91-SNAPSHOT.omod"
+  command: "mv /tmp/bahmnicore-*0.91-SNAPSHOT.omod /tmp/bahmnicore-0.91-SNAPSHOT.omod"
 
 - name: "copying the bahmni core omod"
   copy:
