@@ -25,7 +25,7 @@
 
 - name: "copying the bahmni apps"
   copy:
-    src: "/tmp/bahmniapps.zip
+    src: "/tmp/bahmniapps.zip"
     dest: "/opt/bahmni-web/etc/bahmniapps.zip"
 
 - name: "unlinking /var/www/bahmniapps"
