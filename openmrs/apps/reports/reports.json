@@ -1,11 +1,4 @@
 {
-  "missedAppointmentReport": {
-    "name": "Patients with Missed Appointments",
-     "type": "MRSGeneric",
-     "config": {
-         "sqlPath": "/var/www/bahmni_config/openmrs/apps/reports/sql/missed_appointment_report.sql"
-     }
-  },
   "appointmentStatusReport": {
    "name": "Appointment Details",
     "type": "MRSGeneric",
