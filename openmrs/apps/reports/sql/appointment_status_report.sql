@@ -118,7 +118,6 @@ FROM
 
 WHERE
   DATE(pai.start_date_time) BETWEEN DATE('#startDate#') AND DATE('#endDate#')
-  AND pai.appointment_kind='Scheduled'
   AND pai.appointment_service_id IN
                                   (
                                     SELECT appointment_service_id
